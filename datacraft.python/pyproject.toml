@@ -1,0 +1,39 @@
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = 'pep440'
+pattern = 'default-unprefixed'
+
+[tool.poetry]
+name = "datacraft"
+version = "0.0.0"
+description = "Generating datasets from concise description."
+readme = "README.md"
+homepage = "https://github.com/wonderbeyond/datacraft"
+repository = "https://github.com/wonderbeyond/datacraft"
+documentation = "https://github.com/wonderbeyond/datacraft"
+keywords = ["python", "datacraft", "dataset", "generator"]
+authors = ["Wonder <wonderbeyond@gmail.com>"]
+license = "MIT"
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[tool.poetry.scripts]
+mkdata = 'datacraft.cli:main'
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest = {version = "^7.1.2", optional = true}
+pyyaml = "^6.0"
+
+[tool.poetry.extras]
+testing = ["pytest"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"

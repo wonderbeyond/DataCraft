@@ -1,0 +1,76 @@
+---
+name: "Snippets"
+abstract: true  # An abstract template cannot be used to generate a document.
+content:
+  x: 1
+  site_id:
+    title: "Site ID."
+    type: string
+  sample_amount:
+    title: "Sample Amount"
+    type: object.x-amount
+    properties:
+      value:
+        type: number
+      unit:
+        type: string
+        default: 'mg'
+
+---
+name: "Target"  # The generated document's name.
+content:  # The template for generating doc content.
+  type: object
+  required: ["name", "principal"]
+  properties:
+    site_id: {$ref: 'Snippets#/site_id'}
+    name:
+      title: "Name"
+      type: string
+    principal:
+      title: "Principal"
+      type: string
+    status:
+      title: "Status"
+      type: string
+      enum: ["CREATED", "IN_PROGRESS", "DELIVERED", "CANCELED"]
+
+---
+name: "BaseExperiment"
+abstract: true
+content:
+  type: object
+  required: ["name", "id", "status", "creator"]
+  properties:
+    name:
+      title: "Name"
+      type: string
+    id:
+      title: "Exp. Number"
+      type: string
+    creator:
+      title: "Creator"
+      type: string
+    status:
+      type: string
+      default: 'CREATED'
+      enum: ["CREATED", "IN_PROGRESS", "COMPLETED", "FAILED"]
+
+---
+name: "SolPS.Exp"
+extends: "BaseExperiment"
+content:
+  required: ["sample_amount"]
+  properties:
+    sample_amount: {$ref: 'Snippets#/sample_amount'}
+    solubility:
+      title: "Solubility"
+      type: string  # Format: ">"|"<" NUMBER "mg/ml", e.g. "< 2 mg/ml"
+
+---
+name: "SolSc.Exp"
+extends: "BaseExperiment"
+content:
+  properties:
+    curve_formula:
+      title: "Curve Formula"
+      type: string

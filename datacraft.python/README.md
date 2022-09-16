@@ -1,0 +1,5 @@
+# Datacraft - Python implementation
+
+```
+$ mkdata
+```
